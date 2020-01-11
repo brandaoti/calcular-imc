@@ -1,5 +1,9 @@
 # calcular_imc
 
+
+Entre muitos cuidados que devemos ter com nossa saúde e corpo, um deles é imprescindível: saber e manter o peso ideal. Sendo de grande importância para a promoção da saúde e prevenção de doenças. Por isso, é importante conhecer seu Índice de Massa Corporal (IMC).
+
+
 A new Flutter project.
 
 ## Getting Started
