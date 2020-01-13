@@ -1,3 +1,5 @@
+
+import 'package:calcular_imc/bloc/imc_bloc.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -6,6 +8,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+  var bloc = new ImcBloc();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,30 +21,6 @@ class _HomePageState extends State<HomePage> {
       ),
 
       backgroundColor: Colors.deepPurple[50], // Cor do fundo
-/*
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(color: Colors.purple[300]),
-              child: Text(
-                "Testando",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24.0,
-                ),
-              ),
-            ),
-            
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('settings'),
-            ),
-          ],
-        ),
-      ),
-*/
 
       body: Container(
         padding: EdgeInsets.only(
@@ -69,6 +50,7 @@ class _HomePageState extends State<HomePage> {
               ),
               textAlign: TextAlign.justify,
               style: TextStyle(color: Colors.black),
+              controller: bloc.weightController,
             ),
 
             SizedBox(
