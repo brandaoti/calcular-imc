@@ -1,4 +1,5 @@
 import 'package:calcular_imc/bloc/imc_bloc.dart';
+import 'package:calcular_imc/bloc/validate_form.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -7,7 +8,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   var bloc = new ImcBloc();
+  var validateForm = new ValidateForm();
 
   @override
   Widget build(BuildContext context) {
@@ -27,85 +31,98 @@ class _HomePageState extends State<HomePage> {
           right: 30.0, // Right
           //0.0, // Bottom
         ),
-        child: ListView(
-          children: <Widget>[
-            //Icon(Icons.person, size: 100.0),
-            SizedBox(
-              width: 64,
-              height: 64,
-              child: Image.asset("assets/imagens/heart.png"),
-            ),
-
-            SizedBox(
-              height: 20.0,
-            ),
-
-            TextFormField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Peso (kg)",
-                labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+        child: Form(
+          key: validateForm.formKey,
+          //key: _formKey,
+          child: ListView(
+            children: <Widget>[
+              //Icon(Icons.person, size: 100.0),
+              SizedBox(
+                width: 64,
+                height: 64,
+                child: Image.asset("assets/imagens/heart.png"),
               ),
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Colors.black),
-              controller: bloc.weightController,
-            ),
 
-            SizedBox(
-              height: 10.0,
-            ),
+              SizedBox(height: 20.0),
 
-            TextFormField(
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Altura (cm)",
-                labelStyle: TextStyle(color: Theme.of(context).primaryColor),
-              ),
-              textAlign: TextAlign.justify,
-              style: TextStyle(color: Color(0xFFCE93D8)),
-              controller: bloc.heightController,
-            ),
-
-            Padding(
-              // Texto para mensagem
-              padding: EdgeInsets.all(25.0),
-              child: Text(
-                /* Informe os dados! */
-                bloc.info,
-                style: TextStyle(color: Color(0xFFFF0000)),
-                textAlign: TextAlign.center,
-              ),
-            ),
-
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: FlatButton(
-                color: Theme.of(context).primaryColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(10.0),
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Peso (kg)",
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
                 ),
+                textAlign: TextAlign.justify,
+                style: TextStyle(color: Colors.black),
+                controller: bloc.weightController,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Insira seu peso!";
+                  }
+                  return null;
+                },
+              ),
+
+              SizedBox(height: 10.0),
+
+              TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  labelText: "Altura (cm)",
+                  labelStyle: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+                textAlign: TextAlign.justify,
+                style: TextStyle(color: Color(0xFFCE93D8)),
+                controller: bloc.heightController,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Insira sua altura";
+                  }
+                  return null;
+                },
+              ),
+
+              Padding(
+                // Texto para mensagem
+                padding: EdgeInsets.all(25.0),
                 child: Text(
-                  "Verificar",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
+                  /* Informe os dados! */
+                  bloc.info,
+                  style: TextStyle(color: Color(0xFFFF0000)),
+                  textAlign: TextAlign.center,
                 ),
-                onPressed: () {
-                  setState(() {
-                    bloc.calculate();
-                  });
-                }, // Chamar a função pra startar o botão
               ),
-            ),
 
-            Divider(height: 30.0, color: Colors.black45),
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: FlatButton(
+                  color: Theme.of(context).primaryColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(10.0),
+                  ),
+                  child: Text(
+                    "Verificar",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    if (validateForm.isValid()) {
+                      setState(() {
+                        bloc.calculate(); // Chamar a função pra startar o botão
+                      });
+                    }
+                  },
+                ),
+              ),
 
-            Padding(
-              padding: EdgeInsets.all(10.0),
-              child: new Text(bloc.result),
-            
-            ),
-          ],
+              Divider(height: 30.0, color: Colors.black45),
+
+              Padding(
+                padding: EdgeInsets.all(10.0),
+                child: new Text(bloc.result),
+              ),
+            ],
+          ),
         ),
       ),
     );

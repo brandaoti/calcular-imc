@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class ImcBloc {
@@ -11,10 +12,6 @@ class ImcBloc {
     double _weight = double.parse(weightController.text);
     double _height = double.parse(heightController.text) / 100;
     double imc = _weight / (_height * _height);
-
-    if(weightController.value == null){
-      
-    }
 
     if (imc < 18.5) {
       result = "Abaixo do peso!";
