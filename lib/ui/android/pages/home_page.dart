@@ -1,4 +1,3 @@
-
 import 'package:calcular_imc/bloc/imc_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +7,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   var bloc = new ImcBloc();
 
   @override
@@ -46,7 +44,7 @@ class _HomePageState extends State<HomePage> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: "Peso (kg)",
-                labelStyle: TextStyle(color: Colors.indigo),
+                labelStyle: TextStyle(color: Theme.of(context).primaryColor),
               ),
               textAlign: TextAlign.justify,
               style: TextStyle(color: Colors.black),
@@ -61,33 +59,51 @@ class _HomePageState extends State<HomePage> {
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: "Altura (cm)",
-                labelStyle: TextStyle(color: Colors.indigo),
+                labelStyle: TextStyle(color: Theme.of(context).primaryColor),
               ),
               textAlign: TextAlign.justify,
               style: TextStyle(color: Color(0xFFCE93D8)),
+              controller: bloc.heightController,
             ),
 
             Padding(
-              padding: EdgeInsets.all(20.0),
+              // Texto para mensagem
+              padding: EdgeInsets.all(25.0),
               child: Text(
-                "Preencha os dados!",
-                style: TextStyle(color: Colors.purple),
+                /* Informe os dados! */
+                bloc.info,
+                style: TextStyle(color: Color(0xFFFF0000)),
                 textAlign: TextAlign.center,
               ),
             ),
 
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(10.0),
               child: FlatButton(
                 color: Theme.of(context).primaryColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(10.0),
+                ),
                 child: Text(
                   "Verificar",
                   style: TextStyle(
                     color: Colors.white,
                   ),
                 ),
-                onPressed: () {}, // Chamar a função pra startar o botão
+                onPressed: () {
+                  setState(() {
+                    bloc.calculate();
+                  });
+                }, // Chamar a função pra startar o botão
               ),
+            ),
+
+            Divider(height: 30.0, color: Colors.black45),
+
+            Padding(
+              padding: EdgeInsets.all(10.0),
+              child: new Text(bloc.result),
+            
             ),
           ],
         ),
