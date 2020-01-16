@@ -1,6 +1,5 @@
 
 import 'package:calcular_imc/bloc/imc_controller.dart';
-import 'package:calcular_imc/bloc/validate_form.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,7 +11,6 @@ class _HomePageState extends State<HomePage> {
   // GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var imcController = new ImcController();
-  //var validateForm = new ValidateForm();
 
   @override
   Widget build(BuildContext context) {
