@@ -1,4 +1,5 @@
-import 'package:calcular_imc/bloc/imc_bloc.dart';
+
+import 'package:calcular_imc/bloc/imc_controller.dart';
 import 'package:calcular_imc/bloc/validate_form.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var bloc = new ImcBloc();
-  var validateForm = new ValidateForm();
+  var imcController = new ImcController();
+  //var validateForm = new ValidateForm();
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +29,36 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.only(
           left: 20.0, // Left
           top: 30.0, // Top
-          right: 30.0, // Right
+          right: 20.0, // Right
           //0.0, // Bottom
         ),
         child: Form(
-          key: validateForm.formKey,
+          key: imcController.formKey,
           //key: _formKey,
           child: ListView(
             children: <Widget>[
-              //Icon(Icons.person, size: 100.0),
-              SizedBox(
-                width: 64,
-                height: 64,
-                child: Image.asset("assets/imagens/heart.png"),
+              
+              Container(// feito pra definir o tamanho do botão para imagem logo
+                padding: EdgeInsets.only(right: 100.0, left: 100.0),
+                child: FlatButton(
+                  child: SizedBox(// Tamanho da imagem
+                    width: 64,
+                    height: 64,
+                    child: Image.asset("assets/imagens/heart.png"),
+                  ),
+                  color: Colors.deepPurple[50],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(50.0),
+                  ),
+                   onPressed: (){
+                     setState(() {
+                       imcController.refresh();
+                     });
+                   }, // Chamar o metodo para resetar
+                ),
               ),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 10.0),
 
               TextFormField(
                 keyboardType: TextInputType.number,
@@ -53,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
-                controller: bloc.weightController,
+                controller: imcController.weightController,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "Insira seu peso!";
@@ -72,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Color(0xFFCE93D8)),
-                controller: bloc.heightController,
+                controller: imcController.heightController,
                 validator: (value) {
                   if (value.isEmpty) {
                     return "Insira sua altura";
@@ -86,14 +101,17 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.all(25.0),
                 child: Text(
                   /* Informe os dados! */
-                  bloc.info,
+                  imcController.info,
                   style: TextStyle(color: Color(0xFFFF0000)),
                   textAlign: TextAlign.center,
                 ),
               ),
 
               Padding(
-                padding: EdgeInsets.all(10.0),
+                padding: EdgeInsets.only(
+                  left: 40.0, 
+                  right: 40.0,
+                  ),
                 child: FlatButton(
                   color: Theme.of(context).primaryColor,
                   shape: RoundedRectangleBorder(
@@ -106,20 +124,21 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onPressed: () {
-                    if (validateForm.isValid()) {
+                    if (imcController.isValid()) {
                       setState(() {
-                        bloc.calculate(); // Chamar a função pra startar o botão
+                        imcController.calculate(); 
+                        // Chamar a função pra startar o botão
                       });
                     }
                   },
                 ),
               ),
 
-              Divider(height: 30.0, color: Colors.black45),
+              Divider(height: 40.0, color: Colors.black45),
 
               Padding(
                 padding: EdgeInsets.all(10.0),
-                child: new Text(bloc.result),
+                child: new Text(imcController.result),
               ),
             ],
           ),
