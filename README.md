@@ -5,8 +5,8 @@ Entre muitos cuidados que devemos ter com nossa saúde e corpo, um deles é impr
 
 <h3>Referencias de estudo</h3>
 
-- Youtube <strong>[Balta.io]</strong>(https://www.youtube.com/channel/UCgnACLvM9O5lfm9ZBh_d3cg)
-- Udemy <strong>[Daniel Ciolfi]</strong>(https://www.udemy.com/course/curso-completo-flutter-app-android-ios/)
+- Youtube <strong>Balta.io</strong> => https://www.youtube.com/channel/UCgnACLvM9O5lfm9ZBh_d3cg
+- Udemy <strong>Daniel Ciolfi</strong> => https://www.udemy.com/course/curso-completo-flutter-app-android-ios/
 
 ## Getting Started
 
