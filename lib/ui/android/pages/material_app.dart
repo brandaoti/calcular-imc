@@ -5,9 +5,10 @@ class MyMaterialApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Calcular IMC",
       theme: ThemeData(
-        primaryColor: Colors.purple,
+        primaryColor: Color(0xFF50256F),
       ),
       home: HomePage(),
     );
